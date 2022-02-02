@@ -1,0 +1,97 @@
+
+getgenv().AutoClicker = false;
+
+
+
+local library = loadstring(game:HttpGet(('https://raw.githubusercontent.com/AikaV3rm/UiLib/master/Lib.lua')))()
+
+local w = library:CreateWindow("Autofarm") -- Creates the window
+
+
+local c = w:CreateFolder("Farming")
+
+local b = w:CreateFolder("Settings") 
+ 
+
+b:Label("Pretty Useless NGL",{
+    TextSize = 25; -- Self Explaining
+    TextColor = Color3.fromRGB(255,255,255); -- Self Explaining
+    BgColor = Color3.fromRGB(69,69,69); -- Self Explaining
+    
+}) 
+
+
+
+
+c:Toggle("AutoClicker",function(bool)
+    getgenv().AutoClicker = bool
+    print("Auto Clicker is on lol")
+    if bool then 
+        clicker();
+    end
+end)
+
+c:Toggle("Auto Sell ",function(bool)
+    getgenv().AutoSell = bool
+    print("Auto sell is on lol")
+    if bool then 
+        sell();
+    end
+end)
+
+c:Slider("WalkSpeed",{
+    min = 10; -- min value of the slider
+    max = 1000; -- max value of the slider
+    precise = true; -- max 2 decimals
+},function(value)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed=value
+end)
+ 
+c:Slider("JumpPower",{
+    min = 10; -- min value of the slider
+    max = 1000; -- max value of the slider
+    precise = true; -- max 2 decimals
+},function(value)
+    game.Players.LocalPlayer.Character.Humanoid.JumpPower=value
+end)
+
+b:Dropdown("Dropdown",{"A","B","C"},true,function(mob) --true/false, replaces the current title "Dropdown" with the option that t
+    print(mob)
+end)
+
+b:Bind("Bind",Enum.KeyCode.C,function() --Default bind
+    print("Yes")
+end)
+
+b:ColorPicker("ColorPicker",Color3.fromRGB(255,0,0),function(color) --Default color
+    print(color)
+end)
+
+b:Box("Box","number",function(value) -- "number" or "string"
+    print(value)
+end)
+
+b:DestroyGui()
+
+function clicker()
+    spawn(function()
+        while getgenv().AutoClicker == true do
+   local VU = game:GetService("VirtualUser")
+VU:Button1Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+wait(0.1)
+VU:Button1Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+end
+end)
+end
+
+ 
+function sell()
+    spawn(function()
+        while getgenv().AutoSell == true do
+            wait(3)
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-25.5611553, 30.82507653, -6.92604017, 0, 0, 1, 0, 1, -0, -1, 0, 0)
+            wait(1)
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-25.5611553, 30.82507653, -11.92604017, 0, 0, 1, 0, 1, -0, -1, 0, 0)
+        end
+    end)
+end
